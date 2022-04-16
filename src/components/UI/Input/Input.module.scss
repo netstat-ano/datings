@@ -1,0 +1,15 @@
+@import "../../../assets/scssVariables/variables";
+.input {
+    border: 1px solid $secondaryTheme;
+    outline: none;
+    font-size: 1.2rem;
+    width: 80%;
+    border-radius: 1rem;
+}
+
+.container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
