@@ -12,5 +12,8 @@ const configSlice = createSlice({
         },
     },
 });
+const saveConfigToDatabase = () => {
+    return (dispatch) => {};
+};
 export default configSlice;
 export const configSliceActions = configSlice.actions;

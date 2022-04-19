@@ -1,5 +1,10 @@
 .textarea {
+    border: 1px solid black;
     resize: none;
+    outline: none;
+    &:focus {
+        border: 2px solid #007bff;
+    }
 }
 .input-container label {
     padding: 0.5rem;
@@ -7,4 +12,19 @@
 .input-container {
     font-size: 1.1rem;
     padding: 0.5rem;
+}
+.input-container input {
+    border: 1px solid black;
+    width: 60%;
+    outline: none;
+    &:focus {
+        border: 2px solid #007bff;
+    }
+}
+.input-container textarea {
+    width: 60%;
+}
+.error {
+    color: #dc3545;
+    font-size: 0.8rem;
 }

@@ -23,7 +23,13 @@ const ConfigPanel = (props) => {
                     Config
                 </BlueButton>
             </div>
-            {isOverlayShowed && <Overlay children={<ConfigWindow />} />}
+            {isOverlayShowed && (
+                <Overlay
+                    children={
+                        <ConfigWindow setIsOverlayShowed={setIsOverlayShowed} />
+                    }
+                />
+            )}
         </Card>
     );
 };
