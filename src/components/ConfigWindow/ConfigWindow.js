@@ -4,7 +4,8 @@ import GrayButton from "../UI/GrayButton/GrayButton";
 import Card from "../UI/Card/Card";
 import GreenButton from "../UI/GreenButton/GreenButton";
 import { useReducer } from "react";
-
+import { useDispatch } from "react-redux";
+import { saveConfigToDatabase } from "../../store/config-slice";
 const inputReducer = (state, action) => {
     switch (action.id) {
         case "name":
@@ -39,8 +40,10 @@ const ConfigWindow = (props) => {
         prefferedPartner: null,
         ageRange: null,
     });
+    const dispatch = useDispatch();
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        dispatch(saveConfigToDatabase(inputValues));
     };
     const onCancelHandler = (event) => {
         props.setIsOverlayShowed(false);

@@ -1,8 +1,39 @@
 import AgeRangeInput from "./AgeRangeInput";
 import styles from "./InputForm.module.scss";
+import { useState } from "react";
 const InputForm = (props) => {
+    const [isError, setIsError] = useState(false);
     const onChangeHandler = (event) => {
-        props.onSaveHandler({ value: event.target.value, id: props.id });
+        if (!isError) {
+            props.onSaveHandler({ value: event.target.value, id: props.id });
+            return;
+        }
+    };
+    const onBlurHandler = (event) => {
+        if (
+            props.id === "name" ||
+            props.id === "surname" ||
+            props.id === "description" ||
+            props.id === "school" ||
+            props.id === "work"
+        ) {
+            if (event.target.value.trim().length < 1) {
+                setIsError(`This input can't be empty`);
+                return;
+            }
+            setIsError(false);
+            return;
+        }
+        if (props.id === "age") {
+            if (Number(event.target.value < 18)) {
+                setIsError(
+                    "You must have more than 18 years old to use this app"
+                );
+                return;
+            }
+            setIsError(false);
+            return;
+        }
     };
     if (props.type === "ageRange") {
         return <AgeRangeInput onChangeHandler={onChangeHandler} {...props} />;
@@ -15,6 +46,7 @@ const InputForm = (props) => {
             <div>
                 {props.type !== "textarea" ? (
                     <input
+                        onBlur={onBlurHandler}
                         onChange={onChangeHandler}
                         {...props.input}
                         id={props.id}
@@ -23,6 +55,7 @@ const InputForm = (props) => {
                     ></input>
                 ) : (
                     <textarea
+                        onBlur={onBlurHandler}
                         onChange={onChangeHandler}
                         {...props.input}
                         className={styles.textarea}
@@ -32,6 +65,7 @@ const InputForm = (props) => {
                     ></textarea>
                 )}
             </div>
+            {isError && <div className={styles.error}>{isError}</div>}
         </div>
     );
 };

@@ -13,8 +13,7 @@ const AgeRangeInput = (props) => {
         secondAge = Number(secondAge);
         console.log(firstAge);
         console.log(secondAge);
-        if ((firstAge < 18 && secondAge < 18) || firstAge > secondAge) {
-            console.log("error");
+        if (firstAge < 18 || secondAge < 18 || firstAge > secondAge) {
             setIsError(true);
         } else {
             setIsError(false);

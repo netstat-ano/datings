@@ -1,19 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { set, ref } from "firebase/database";
 
+import { database } from "../firebase";
 const configSlice = createSlice({
     name: "config",
     initialState: null,
     reducers: {
         saveConfig(state, action) {
-            state = action.payload;
+            state = { ...action.payload };
+            console.log(state);
         },
         resetConfig(state) {
             state = null;
         },
     },
 });
-const saveConfigToDatabase = () => {
-    return (dispatch) => {};
+export const configSliceActions = configSlice.actions;
+export const saveConfigToDatabase = (config) => {
+    return (dispatch, getState) => {
+        const user = getState().auth.user;
+        console.log(user);
+        set(ref(database, `${user.uid}/config`), {
+            ...config,
+        });
+        dispatch(configSliceActions.saveConfig(config));
+    };
 };
 export default configSlice;
-export const configSliceActions = configSlice.actions;

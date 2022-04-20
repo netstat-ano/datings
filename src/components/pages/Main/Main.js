@@ -9,9 +9,10 @@ const Main = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
     const config = useSelector((state) => state.config);
+    console.log(config);
     useEffect(() => {
         if (user) {
-            get(ref(database, `${user.uid}/profileInfo`)).then((snapshot) => {
+            get(ref(database, `${user.uid}/config`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     dispatch(configSliceActions.saveConfig(snapshot.val()));
                     return;
