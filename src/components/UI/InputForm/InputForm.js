@@ -3,11 +3,15 @@ import styles from "./InputForm.module.scss";
 import { useState } from "react";
 const InputForm = (props) => {
     const [isError, setIsError] = useState(false);
+    let value = "";
+    if (props.value && props.id !== "man" && props.id !== "woman") {
+        value = props.value.value;
+    } else if (props.value && props.value.id === props.id) {
+        value = "on";
+    }
+    console.log(value);
     const onChangeHandler = (event) => {
-        if (!isError) {
-            props.onSaveHandler({ value: event.target.value, id: props.id });
-            return;
-        }
+        props.onSaveHandler({ value: event.target.value, id: props.id });
     };
     const onBlurHandler = (event) => {
         if (
@@ -46,6 +50,8 @@ const InputForm = (props) => {
             <div>
                 {props.type !== "textarea" ? (
                     <input
+                        defaultChecked={!!value}
+                        defaultValue={value}
                         onBlur={onBlurHandler}
                         onChange={onChangeHandler}
                         {...props.input}
@@ -55,6 +61,7 @@ const InputForm = (props) => {
                     ></input>
                 ) : (
                     <textarea
+                        defaultValue={value}
                         onBlur={onBlurHandler}
                         onChange={onChangeHandler}
                         {...props.input}

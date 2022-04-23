@@ -5,9 +5,8 @@ import Overlay from "../UI/Overlay/Overlay";
 import ConfigWindow from "../ConfigWindow/ConfigWindow";
 import { useState } from "react";
 const ConfigPanel = (props) => {
-    const [isOverlayShowed, setIsOverlayShowed] = useState(false);
     const onButtonClickHandler = () => {
-        setIsOverlayShowed((state) => !state);
+        props.setIsOverlayShowed((state) => !state);
     };
     return (
         <Card className={styles.container}>
@@ -23,10 +22,12 @@ const ConfigPanel = (props) => {
                     Config
                 </BlueButton>
             </div>
-            {isOverlayShowed && (
+            {props.isOverlayShowed && (
                 <Overlay
                     children={
-                        <ConfigWindow setIsOverlayShowed={setIsOverlayShowed} />
+                        <ConfigWindow
+                            setIsOverlayShowed={props.setIsOverlayShowed}
+                        />
                     }
                 />
             )}

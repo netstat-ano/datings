@@ -1,10 +1,16 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./InputForm.module.scss";
 const AgeRangeInput = (props) => {
     const [inputValue, setInputValue] = useState("");
     const [isError, setIsError] = useState(false);
     const [isInputValueTouched, setIsInputValueTouched] = useState(false);
     const inputRef = useRef();
+
+    useEffect(() => {
+        if (props.value) {
+            setInputValue(props.value.value);
+        }
+    }, []);
 
     const onBlurHandler = (event) => {
         const range = inputValue.split("-") || inputValue;

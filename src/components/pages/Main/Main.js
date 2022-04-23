@@ -1,21 +1,25 @@
 import { get, ref } from "firebase/database";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { database } from "../../../firebase";
 import { configSliceActions } from "../../../store/config-slice";
 import ConfigPanel from "../../ConfigPanel/ConfigPanel";
+import Navigation from "../../Navigation/Navigation";
+import Profile from "../../Profile/Profile";
+import Overlay from "../../UI/Overlay/Overlay";
+import ConfigWindow from "../../ConfigWindow/ConfigWindow";
+import { Route } from "react-router-dom";
 const Main = () => {
     const dispatch = useDispatch();
+    const [isOverlayShowed, setIsOverlayShowed] = useState(false);
     const user = useSelector((state) => state.auth.user);
     const config = useSelector((state) => state.config);
-    console.log(config);
     useEffect(() => {
         if (user) {
             get(ref(database, `${user.uid}/config`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     dispatch(configSliceActions.saveConfig(snapshot.val()));
-                    return;
                 }
             });
         }
@@ -24,8 +28,29 @@ const Main = () => {
         return <Redirect to="/login" />;
     }
     if (!config) {
-        return <ConfigPanel />;
+        return (
+            <ConfigPanel
+                isOverlayShowed={isOverlayShowed}
+                setIsOverlayShowed={setIsOverlayShowed}
+            />
+        );
     }
-    return <div></div>;
+    return (
+        <div>
+            <Route path="/main/profile">
+                <Profile setIsOverlayShowed={setIsOverlayShowed} />
+                {isOverlayShowed && (
+                    <Overlay
+                        children={
+                            <ConfigWindow
+                                setIsOverlayShowed={setIsOverlayShowed}
+                            />
+                        }
+                    />
+                )}
+            </Route>
+            <Navigation />
+        </div>
+    );
 };
 export default Main;

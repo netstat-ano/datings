@@ -7,8 +7,7 @@ const configSlice = createSlice({
     initialState: null,
     reducers: {
         saveConfig(state, action) {
-            state = { ...action.payload };
-            console.log(state);
+            return action.payload;
         },
         resetConfig(state) {
             state = null;
@@ -19,7 +18,6 @@ export const configSliceActions = configSlice.actions;
 export const saveConfigToDatabase = (config) => {
     return (dispatch, getState) => {
         const user = getState().auth.user;
-        console.log(user);
         set(ref(database, `${user.uid}/config`), {
             ...config,
         });

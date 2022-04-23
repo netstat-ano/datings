@@ -9,7 +9,12 @@
     background-color: white;
     text-align: center;
 }
+.container > div:first-child {
+    text-align: left;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+}
 .button {
-    font-size: 1rem;
+    font-size: 1rem !important;
     margin: 0.5rem;
 }
