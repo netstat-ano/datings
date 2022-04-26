@@ -9,6 +9,7 @@ import Navigation from "../../Navigation/Navigation";
 import Profile from "../../Profile/Profile";
 import Overlay from "../../UI/Overlay/Overlay";
 import ConfigWindow from "../../ConfigWindow/ConfigWindow";
+import People from "../../People/People";
 import { Route } from "react-router-dom";
 const Main = () => {
     const dispatch = useDispatch();
@@ -48,6 +49,9 @@ const Main = () => {
                         }
                     />
                 )}
+            </Route>
+            <Route path="/main/people">
+                <People />
             </Route>
             <Navigation />
         </div>

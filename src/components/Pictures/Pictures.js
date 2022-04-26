@@ -11,12 +11,12 @@ const Pictures = (props) => {
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchPictures());
+        dispatch(fetchPictures(user.uid));
     }, []);
     const onInputChangeHandler = (event) => {
         uploadBytes(ref(storage, `${user.uid}/pictures`), event.target.files[0])
             .then(() => {
-                dispatch(fetchPictures());
+                dispatch(fetchPictures(user.uid));
             })
             .catch((e) => {
                 console.log(e);

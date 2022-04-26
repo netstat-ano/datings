@@ -20,6 +20,7 @@ export const saveConfigToDatabase = (config) => {
         const user = getState().auth.user;
         set(ref(database, `${user.uid}/config`), {
             ...config,
+            uid: user.uid,
         });
         dispatch(configSliceActions.saveConfig(config));
     };

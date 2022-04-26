@@ -28,6 +28,10 @@ const inputReducer = (state, action) => {
             return { ...state, prefferedPartner: action };
         case "ageRange":
             return { ...state, ageRange: action };
+        case "manSex":
+            return { ...state, sex: "man" };
+        case "womanSex":
+            return { ...state, sex: "woman" };
     }
 };
 
@@ -39,12 +43,12 @@ const ConfigWindow = (props) => {
     const dispatch = useDispatch();
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        console.log(inputValues);
         for (const key in inputValues) {
             if (inputValues[key] === null) {
                 return;
             }
         }
+        props.setIsOverlayShowed(false);
         dispatch(saveConfigToDatabase(inputValues));
     };
     const onCancelHandler = (event) => {
@@ -85,6 +89,7 @@ const ConfigWindow = (props) => {
                         id="description"
                         type="textarea"
                         rows={5}
+                        maxLength={600}
                     />
                     <InputForm
                         value={inputValues.school}
@@ -106,6 +111,23 @@ const ConfigWindow = (props) => {
                         labelText="Work"
                         type="text"
                         id="work"
+                    />
+                    <div className={styles.subheadline}>I'm a</div>
+                    <InputForm
+                        value={inputValues.sex}
+                        onSaveHandler={onSaveHandler}
+                        labelText="Woman"
+                        type="radio"
+                        id="womanSex"
+                        name="sex"
+                    />
+                    <InputForm
+                        value={inputValues.sex}
+                        onSaveHandler={onSaveHandler}
+                        labelText="Man"
+                        type="radio"
+                        id="manSex"
+                        name="sex"
                     />
                     <div className={styles.subheadline}>
                         Tell us who you are looking for

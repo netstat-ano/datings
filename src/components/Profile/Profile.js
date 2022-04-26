@@ -4,7 +4,6 @@ import styles from "./Profile.module.scss";
 import BlueButton from "../UI/BlueButton/BlueButton";
 const Profile = (props) => {
     const config = useSelector((state) => state.config);
-    console.log(config);
     const onEditProfileHandler = () => {
         props.setIsOverlayShowed(true);
     };

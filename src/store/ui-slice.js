@@ -14,10 +14,9 @@ const uiSlice = createSlice({
 });
 
 export const uiSliceActions = uiSlice.actions;
-export const fetchPictures = () => {
-    return (dispatch, getState) => {
-        const user = getState().auth.user;
-        getDownloadURL(ref(storage, `${user.uid}/pictures`)).then((url) => {
+export const fetchPictures = (uid) => {
+    return (dispatch) => {
+        getDownloadURL(ref(storage, `${uid}/pictures`)).then((url) => {
             dispatch(uiSliceActions.replacePictures(url));
         });
     };

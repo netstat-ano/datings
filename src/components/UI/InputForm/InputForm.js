@@ -60,16 +60,20 @@ const InputForm = (props) => {
                         type={props.type}
                     ></input>
                 ) : (
-                    <textarea
-                        defaultValue={value}
-                        onBlur={onBlurHandler}
-                        onChange={onChangeHandler}
-                        {...props.input}
-                        className={styles.textarea}
-                        rows={props.rows}
-                        cols={props.cols}
-                        id={props.id}
-                    ></textarea>
+                    <>
+                        <textarea
+                            maxLength={props.maxLength}
+                            defaultValue={value}
+                            onBlur={onBlurHandler}
+                            onChange={onChangeHandler}
+                            {...props.input}
+                            className={styles.textarea}
+                            rows={props.rows}
+                            cols={props.cols}
+                            id={props.id}
+                        ></textarea>
+                        <div>Max 600 characters</div>
+                    </>
                 )}
             </div>
             {isError && <div className={styles.error}>{isError}</div>}
