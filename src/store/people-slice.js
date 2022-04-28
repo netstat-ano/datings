@@ -23,20 +23,6 @@ const peopleSlice = createSlice({
 });
 export const peopleSliceActions = peopleSlice.actions;
 
-const checkMatch = (firstUser, secondUser) => {
-    get(ref(database, `${secondUser.uid}/config`)).then((snapshot) => {
-        const response = snapshot.val();
-        for (const uid in response.uid) {
-            if (uid === firstUser.uid) {
-                const updates = {};
-                updates[`${firstUser.uid}/matched`] = secondUser;
-                updates[`${secondUser.uid}/matched`] = firstUser;
-                update(updates);
-            }
-        }
-    });
-};
-
 export const fetchPeople = () => {
     return async (dispatch, getState) => {
         const userConfig = getState().config;

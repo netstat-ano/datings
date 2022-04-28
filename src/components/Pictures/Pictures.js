@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 const Pictures = (props) => {
     const pictures = useSelector((state) => state.ui.pictures);
     const user = useSelector((state) => state.auth.user);
+    console.log(pictures);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchPictures(user.uid));

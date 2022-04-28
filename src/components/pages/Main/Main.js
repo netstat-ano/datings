@@ -10,6 +10,7 @@ import Profile from "../../Profile/Profile";
 import Overlay from "../../UI/Overlay/Overlay";
 import ConfigWindow from "../../ConfigWindow/ConfigWindow";
 import People from "../../People/People";
+import Chat from "../Chat/Chat";
 import { Route } from "react-router-dom";
 const Main = () => {
     const dispatch = useDispatch();
@@ -49,6 +50,9 @@ const Main = () => {
                         }
                     />
                 )}
+            </Route>
+            <Route path="/main/chat">
+                <Chat />
             </Route>
             <Route path="/main/people">
                 <People />

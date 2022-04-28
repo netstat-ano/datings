@@ -8,7 +8,7 @@ const Profile = (props) => {
         props.setIsOverlayShowed(true);
     };
     return (
-        <div>
+        <div className={styles.container}>
             <div>
                 <Pictures />
             </div>

@@ -4,15 +4,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBan } from "@fortawesome/free-solid-svg-icons";
 import Card from "../UI/Card/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { ref, update } from "firebase/database";
+import { ref, update, get } from "firebase/database";
 import { database } from "../../firebase";
 import { peopleSliceActions } from "../../store/people-slice";
+const checkMatch = (firstUser, secondUser) => {
+    get(ref(database, `${secondUser.uid}`)).then((snapshot) => {
+        const response = snapshot.val();
+        console.log(response);
+        for (const uid in response.liked) {
+            if (uid === firstUser.uid) {
+                const updates = {};
+                updates[`${firstUser.uid}/matched/${secondUser.uid}`] =
+                    secondUser;
+                updates[`${secondUser.uid}/matched/${firstUser.uid}`] =
+                    firstUser;
+                update(ref(database), updates);
+            }
+        }
+    });
+};
 const Person = (props) => {
     const user = useSelector((state) => state.auth.user);
+    const config = useSelector((state) => state.config);
     const dispatch = useDispatch();
     const onHeartClickHandler = (event) => {
         const updates = {};
         updates[`${user.uid}/liked/${props.person.uid}`] = props.person;
+        console.log(user);
+        checkMatch(config, props.person);
         update(ref(database), updates);
         dispatch(peopleSliceActions.removePerson(props.person.uid));
     };
